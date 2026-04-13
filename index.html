@@ -1,1 +1,517 @@
+import React, { useRef } from "react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import {
+  ArrowRight,
+  Brain,
+  Code2,
+  Compass,
+  Linkedin,
+  Mail,
+  MapPinned,
+  Mountain,
+  Plane,
+  Rocket,
+  Sparkles,
+  Stars,
+  Waves,
+} from "lucide-react";
+
+const travelPlaces = [
+  "Leh",
+  "Manali",
+  "Kashmir",
+  "Jaipur",
+  "Udaipur",
+  "Rishikesh",
+  "Harshil",
+  "Kasol",
+  "Agra",
+  "North India & beyond",
+];
+
+const coderHighlights = [
+  "Distributed backend systems that stay fast under load",
+  "Java, Spring Boot, Redis, SQL, AWS, observability",
+  "Microservices, caching strategy, resilience, async workflows",
+  "Performance work that makes products feel calm and instant",
+];
+
+const mindAreas = [
+  "Psychology and human behavior",
+  "Manifestation and mental frameworks",
+  "Magic, wonder, and the unseen",
+  "Attention, identity, emotion, and inner transformation",
+];
+
+const extraWorlds = [
+  {
+    title: "Builder",
+    icon: Rocket,
+    copy:
+      "I like creating things that feel real, useful, and lasting — products, systems, ideas, and future-facing experiments.",
+  },
+  {
+    title: "Explorer",
+    icon: Compass,
+    copy:
+      "Travel gives me contrast, stillness, and expansion. It resets how I think and deepens perspective.",
+  },
+  {
+    title: "Vision",
+    icon: Stars,
+    copy:
+      "I am drawn to sci-fi, the universe, future tech, and ideas that sit between imagination and engineering.",
+  },
+];
+
+function SectionLabel({ icon: Icon, name, tone = "light" }) {
+  return (
+    <div
+      className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.28em] ${
+        tone === "dark"
+          ? "border-black/10 bg-black/5 text-black/55"
+          : "border-white/12 bg-white/6 text-white/60"
+      }`}
+    >
+      <Icon className="h-3.5 w-3.5" />
+      {name}
+    </div>
+  );
+}
+
+function HeadingBlock({ eyebrow, title, copy, icon: Icon, light = true }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 36 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.75, ease: "easeOut" }}
+      className="max-w-3xl"
+    >
+      <SectionLabel icon={Icon} name={eyebrow} tone={light ? "light" : "dark"} />
+      <h2
+        className={`mt-6 text-4xl font-semibold tracking-[-0.05em] sm:text-5xl lg:text-6xl ${
+          light ? "text-white" : "text-zinc-950"
+        }`}
+      >
+        {title}
+      </h2>
+      <p
+        className={`mt-6 max-w-2xl text-base leading-8 sm:text-lg ${
+          light ? "text-white/70" : "text-zinc-700"
+        }`}
+      >
+        {copy}
+      </p>
+    </motion.div>
+  );
+}
+
+function GlassCard({ children, className = "" }) {
+  return (
+    <div className={`rounded-[2rem] border border-white/10 bg-white/[0.05] shadow-[0_30px_120px_rgba(0,0,0,0.28)] backdrop-blur-xl ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+export default function YogeshMultiverseLanding() {
+  const pageRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: pageRef, offset: ["start start", "end end"] });
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 20, mass: 0.2 });
+
+  const heroRef = useRef(null);
+  const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroY = useTransform(heroProgress, [0, 1], [0, 140]);
+  const heroOpacity = useTransform(heroProgress, [0, 0.8], [1, 0.2]);
+
+  return (
+    <div ref={pageRef} className="min-h-screen bg-black text-white selection:bg-cyan-300/25 selection:text-white">
+      <motion.div style={{ scaleX: progress }} className="fixed left-0 right-0 top-0 z-[90] h-[3px] origin-left bg-gradient-to-r from-cyan-300 via-violet-400 to-amber-300" />
+
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute left-[-8rem] top-[-6rem] h-[32rem] w-[32rem] rounded-full bg-cyan-400/12 blur-3xl" />
+        <div className="absolute right-[-6rem] top-[6rem] h-[28rem] w-[28rem] rounded-full bg-fuchsia-500/10 blur-3xl" />
+        <div className="absolute bottom-[-8rem] left-1/3 h-[26rem] w-[26rem] rounded-full bg-amber-300/10 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(circle_at_center,black,transparent_82%)]" />
+      </div>
+
+      <header className="sticky top-0 z-50 border-b border-white/8 bg-black/35 backdrop-blur-2xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10 lg:px-16">
+          <div>
+            <div className="text-xs uppercase tracking-[0.34em] text-white/40">Yogesh Saili</div>
+            <div className="mt-1 text-sm text-white/72">Identity site • cinematic single page</div>
+          </div>
+          <nav className="hidden items-center gap-6 text-sm text-white/65 md:flex">
+            <a href="#traveller" className="transition hover:text-white">Traveller</a>
+            <a href="#coder" className="transition hover:text-white">Coder</a>
+            <a href="#mind" className="transition hover:text-white">Mind</a>
+            <a href="#worlds" className="transition hover:text-white">Worlds</a>
+            <a href="#connect" className="transition hover:text-white">Connect</a>
+          </nav>
+        </div>
+      </header>
+
+      <section
+        ref={heroRef}
+        className="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.16),transparent_24%),radial-gradient(circle_at_78%_14%,rgba(168,85,247,0.16),transparent_18%),linear-gradient(180deg,#06070a_0%,#090b12_55%,#090c13_100%)]"
+      >
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="mx-auto max-w-7xl px-6 py-14 sm:px-10 lg:px-16 lg:py-24">
+          <div className="grid min-h-[82vh] items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+            <div>
+              <SectionLabel icon={Sparkles} name="Not just a portfolio" />
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, ease: "easeOut" }}
+                className="mt-8 max-w-5xl text-5xl font-semibold leading-[0.92] tracking-[-0.07em] text-white sm:text-7xl lg:text-[6.2rem]"
+              >
+                A premium digital world for everything I am.
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.08, ease: "easeOut" }}
+                className="mt-8 max-w-3xl text-lg leading-8 text-white/72 sm:text-xl"
+              >
+                Traveller. Coder. Builder. Thinker. A one-page experience where each scroll chapter changes mood, texture, movement, and atmosphere.
+              </motion.p>
+
+              <div className="mt-10 flex flex-wrap gap-4">
+                <a href="#traveller" className="inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-300/12 px-6 py-3 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-cyan-300/18">
+                  Enter the experience <ArrowRight className="h-4 w-4" />
+                </a>
+                <a href="#connect" className="rounded-full border border-white/12 bg-white/6 px-6 py-3 text-sm font-medium text-white/85 transition hover:scale-[1.02] hover:bg-white/10">
+                  Use this on www.yogeshsaili.com
+                </a>
+              </div>
+
+              <div className="mt-10 flex flex-wrap gap-3">
+                {[
+                  "Distinct moods per section",
+                  "Premium motion and depth",
+                  "Personal + professional identity",
+                  "Made for a custom domain",
+                ].map((item) => (
+                  <span key={item} className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.95, ease: "easeOut" }}
+              className="relative"
+            >
+              <GlassCard className="p-6">
+                <div className="rounded-[1.6rem] border border-white/10 bg-black/30 p-6">
+                  <div className="grid gap-4">
+                    <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4.8, repeat: Infinity }} className="rounded-[1.5rem] border border-emerald-300/12 bg-emerald-300/10 p-5">
+                      <div className="mb-3 flex items-center gap-3 text-emerald-200">
+                        <Mountain className="h-5 w-5" />
+                        <span className="text-xs uppercase tracking-[0.25em]">Traveller</span>
+                      </div>
+                      <p className="text-sm leading-7 text-white/75">Mountains, roads, silence, rivers, and destinations that reset perspective.</p>
+                    </motion.div>
+                    <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 5.4, repeat: Infinity }} className="rounded-[1.5rem] border border-sky-300/12 bg-sky-300/10 p-5">
+                      <div className="mb-3 flex items-center gap-3 text-sky-200">
+                        <Code2 className="h-5 w-5" />
+                        <span className="text-xs uppercase tracking-[0.25em]">Coder</span>
+                      </div>
+                      <p className="text-sm leading-7 text-white/75">Systems that are clean under the hood, fast in production, and reliable at scale.</p>
+                    </motion.div>
+                    <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 6.1, repeat: Infinity }} className="rounded-[1.5rem] border border-fuchsia-300/12 bg-fuchsia-300/10 p-5">
+                      <div className="mb-3 flex items-center gap-3 text-fuchsia-200">
+                        <Brain className="h-5 w-5" />
+                        <span className="text-xs uppercase tracking-[0.25em]">Mind</span>
+                      </div>
+                      <p className="text-sm leading-7 text-white/75">Psychology, manifestation, identity, magic, curiosity, and inner worlds.</p>
+                    </motion.div>
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      <section
+        id="traveller"
+        className="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_20%_18%,rgba(16,185,129,0.18),transparent_22%),radial-gradient(circle_at_80%_20%,rgba(251,191,36,0.14),transparent_18%),linear-gradient(180deg,#09110e_0%,#0b1916_52%,#08120f_100%)]"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:px-16 lg:py-32">
+          <HeadingBlock
+            eyebrow="Traveller"
+            title="Places that altered the mood of my life."
+            copy="This chapter should feel expansive, cold, scenic, and alive — like altitude, pine air, mountain roads, river echoes, and the quiet clarity that travel brings."
+            icon={Plane}
+          />
+
+          <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_0.95fr]">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {travelPlaces.map((place, index) => (
+                <motion.div
+                  key={place}
+                  initial={{ opacity: 0, y: 26 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.55, delay: index * 0.04 }}
+                  className={`rounded-[1.8rem] border border-white/10 p-5 backdrop-blur-xl ${
+                    index % 3 === 0 ? "bg-white/10" : "bg-white/5"
+                  }`}
+                >
+                  <div className="mb-3 flex items-center gap-3 text-emerald-200">
+                    <MapPinned className="h-4.5 w-4.5" />
+                    <span className="text-[11px] uppercase tracking-[0.22em] text-white/45">Explored</span>
+                  </div>
+                  <div className="text-xl font-semibold tracking-tight text-white">{place}</div>
+                </motion.div>
+              ))}
+            </div>
+
+            <GlassCard className="overflow-hidden">
+              <div className="h-full bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-8">
+                <div className="rounded-[1.7rem] border border-white/10 bg-black/20 p-6">
+                  <div className="mb-4 flex items-center gap-3 text-emerald-200">
+                    <Waves className="h-5 w-5" />
+                    <span className="text-xs uppercase tracking-[0.25em] text-white/50">Travel energy</span>
+                  </div>
+                  <p className="text-lg leading-9 text-white/75">
+                    I love places with a strong emotional signature — Leh for altitude and stillness, Kashmir for beauty, Manali and Kasol for release, Rishikesh and Harshil for peace, Jaipur and Udaipur for culture, Agra for timelessness. Travel gives me contrast, perspective, and a kind of reset that feeds everything else I build.
+                  </p>
+                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                      <div className="text-[11px] uppercase tracking-[0.22em] text-white/42">Feel</div>
+                      <div className="mt-2 text-white/82">Open skies, roads, rivers, mountains, silence</div>
+                    </div>
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                      <div className="text-[11px] uppercase tracking-[0.22em] text-white/42">Why I travel</div>
+                      <div className="mt-2 text-white/82">To expand perspective and come back sharper</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </GlassCard>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="coder"
+        className="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_18%_18%,rgba(59,130,246,0.16),transparent_22%),radial-gradient(circle_at_84%_16%,rgba(6,182,212,0.15),transparent_18%),linear-gradient(180deg,#040b15_0%,#081121_54%,#040a14_100%)]"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:px-16 lg:py-32">
+          <HeadingBlock
+            eyebrow="Coder"
+            title="The part of me that loves systems, signal, speed, and structure."
+            copy="The feeling here becomes cleaner and more electric — precise layouts, sharper contrast, and a subtle sense of motion like dashboards, architecture, and well-behaved production systems."
+            icon={Code2}
+          />
+
+          <div className="mt-14 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+            <GlassCard className="p-8">
+              <div className="mb-5 flex items-center gap-3 text-sky-200">
+                <Code2 className="h-5 w-5" />
+                <span className="text-xs uppercase tracking-[0.25em] text-white/48">Core identity</span>
+              </div>
+              <div className="space-y-4">
+                {coderHighlights.map((item, index) => (
+                  <motion.div
+                    key={item}
+                    initial={{ opacity: 0, x: -18 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.55, delay: index * 0.06 }}
+                    className="rounded-[1.4rem] border border-white/10 bg-black/22 px-4 py-4 text-white/80"
+                  >
+                    {item}
+                  </motion.div>
+                ))}
+              </div>
+            </GlassCard>
+
+            <div className="grid gap-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                className="rounded-[1.8rem] border border-white/10 bg-white/6 p-6 backdrop-blur-xl"
+              >
+                <div className="text-[11px] uppercase tracking-[0.24em] text-white/40">What I enjoy</div>
+                <div className="mt-3 text-2xl font-semibold tracking-tight text-white">Microservices, caching, reliability, performance, observability</div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: 0.05 }}
+                className="rounded-[1.8rem] border border-white/10 bg-white/6 p-6 backdrop-blur-xl"
+              >
+                <div className="text-[11px] uppercase tracking-[0.24em] text-white/40">Mindset</div>
+                <div className="mt-3 text-lg leading-8 text-white/75">
+                  I enjoy solving backend problems that actually matter — latency, memory, concurrency, scale, incident behavior, payload design, and all the quiet engineering that makes products feel effortless.
+                </div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: 0.1 }}
+                className="rounded-[1.8rem] border border-cyan-300/15 bg-cyan-300/10 p-6 backdrop-blur-xl"
+              >
+                <div className="text-[11px] uppercase tracking-[0.24em] text-white/40">Signature vibe</div>
+                <div className="mt-3 text-lg leading-8 text-white/82">
+                  Not just writing code. Designing systems that keep their composure when real-world complexity arrives.
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="mind"
+        className="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_16%_18%,rgba(217,70,239,0.14),transparent_22%),radial-gradient(circle_at_82%_18%,rgba(251,191,36,0.12),transparent_18%),linear-gradient(180deg,#120716_0%,#170b1d_54%,#100613_100%)]"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:px-16 lg:py-32">
+          <HeadingBlock
+            eyebrow="Mind • Psychology • Manifestation"
+            title="The inner world deserves as much space as the outer one."
+            copy="This chapter becomes softer, more dreamlike, more reflective. It should feel like mystery, stillness, human behavior, patterns, energy, and the parts of life that are difficult to measure but impossible to ignore."
+            icon={Brain}
+          />
+
+          <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="grid gap-4">
+              {mindAreas.map((item, index) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.55, delay: index * 0.05 }}
+                  className="rounded-[1.7rem] border border-white/10 bg-white/6 p-5 backdrop-blur-xl"
+                >
+                  <div className="flex items-center gap-3 text-fuchsia-200">
+                    <Sparkles className="h-4 w-4" />
+                    <span className="text-white/80">{item}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <GlassCard className="p-8">
+              <div className="mb-5 flex items-center gap-3 text-fuchsia-200">
+                <Stars className="h-5 w-5" />
+                <span className="text-xs uppercase tracking-[0.25em] text-white/48">What draws me in</span>
+              </div>
+              <p className="text-lg leading-9 text-white/76">
+                I am deeply interested in psychology, the subconscious mind, manifestation, belief systems, human emotion, and even the sense of magic that sometimes exists around life. I like questions that sit between science, awareness, wonder, and mystery.
+              </p>
+              <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-black/20 p-5 text-white/72">
+                This part can later evolve into books, reflective notes, quotes, ideas, journal fragments, or a private philosophy section that makes the site feel more personal and alive.
+              </div>
+            </GlassCard>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="worlds"
+        className="relative overflow-hidden border-b border-zinc-200 bg-[radial-gradient(circle_at_20%_18%,rgba(56,189,248,0.12),transparent_24%),radial-gradient(circle_at_82%_16%,rgba(251,191,36,0.12),transparent_18%),linear-gradient(180deg,#f8fbff_0%,#f3f1ff_50%,#fffdf7_100%)] text-zinc-950"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:px-16 lg:py-32">
+          <HeadingBlock
+            eyebrow="More worlds"
+            title="A richer identity than a resume alone can show."
+            copy="These sections make the site feel complete — not just a professional profile, but a layered personal universe with thought, ambition, and taste."
+            icon={Rocket}
+            light={false}
+          />
+
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {extraWorlds.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 26 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.55, delay: index * 0.06 }}
+                  className="rounded-[2rem] border border-black/10 bg-white/75 p-8 shadow-[0_30px_100px_rgba(15,23,42,0.10)] backdrop-blur-xl"
+                >
+                  <div className="mb-5 inline-flex rounded-2xl border border-black/10 bg-black/5 p-3 text-sky-700">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-2xl font-semibold tracking-tight">{item.title}</h3>
+                  <p className="mt-4 text-base leading-8 text-zinc-700">{item.copy}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            className="mt-10 rounded-[2rem] border border-black/10 bg-white/80 p-8"
+          >
+            <div className="text-[11px] uppercase tracking-[0.28em] text-zinc-500">Suggested future sections</div>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {[
+                "Books & Ideas",
+                "Now",
+                "Universe & Sci-Fi",
+                "Photo Journal",
+                "Lessons I Believe In",
+                "Dream Projects",
+                "Quotes & Thoughts",
+                "My Philosophy",
+              ].map((tag) => (
+                <span key={tag} className="rounded-full border border-black/10 bg-black/5 px-4 py-2 text-sm text-zinc-700">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section
+        id="connect"
+        className="relative overflow-hidden bg-[radial-gradient(circle_at_20%_18%,rgba(14,165,233,0.14),transparent_22%),radial-gradient(circle_at_80%_14%,rgba(168,85,247,0.12),transparent_18%),linear-gradient(180deg,#090b10_0%,#06070b_100%)]"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:px-16 lg:py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7 }}
+            className="rounded-[2.2rem] border border-white/10 bg-white/6 p-8 text-center shadow-[0_30px_120px_rgba(0,0,0,0.30)] backdrop-blur-2xl sm:p-12"
+          >
+            <SectionLabel icon={Sparkles} name="Final section" />
+            <h2 className="mt-6 text-4xl font-semibold tracking-[-0.05em] text-white sm:text-5xl">
+              Let the main site feel like an experience.
+            </h2>
+            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-white/70">
+              Use <span className="text-white">www.yogeshsaili.com</span> as the cinematic identity site and keep <span className="text-white">resume.yogeshsaili.com</span> clean, focused, and recruiter-friendly.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <a href="mailto:yogesh.saili18@gmail.com" className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/10 px-6 py-3 text-white transition hover:bg-white/15">
+                <Mail className="h-4 w-4" /> Email
+              </a>
+              <a href="https://www.linkedin.com/in/yogesh-saili" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/10 px-6 py-3 text-white transition hover:bg-white/15">
+                <Linkedin className="h-4 w-4" /> LinkedIn
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+}
 
