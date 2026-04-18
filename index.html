@@ -2297,7 +2297,687 @@
       }
     }
 
+  
+
+    /* ================================
+       ORIGIN HERO: animated identity portal
+       Replaces static rune/orbit card with cinematic motion
+    ================================= */
+    .identity-altar {
+      padding: 18px !important;
+      transform-style: preserve-3d;
+      perspective: 1200px;
+    }
+
+    .identity-core-stage {
+      min-height: 620px !important;
+      border-radius: 34px !important;
+      overflow: hidden !important;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at calc(50% + var(--mx, 0px)) calc(48% + var(--my, 0px)), rgba(139,233,255,.18), transparent 17%),
+        radial-gradient(circle at 53% 72%, rgba(255,154,61,.18), transparent 20%),
+        radial-gradient(circle at 70% 25%, rgba(185,152,255,.13), transparent 24%),
+        linear-gradient(180deg, rgba(18,22,28,.86), rgba(4,6,9,.98)) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12),
+        inset 0 0 90px rgba(139,233,255,.06),
+        0 38px 130px rgba(0,0,0,.52);
+    }
+
+    .identity-core-stage::before,
+    .identity-core-stage::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .identity-core-stage::before {
+      inset: -20%;
+      background:
+        conic-gradient(from 90deg at 50% 50%, transparent 0 12%, rgba(139,233,255,.08) 18%, transparent 25%, rgba(241,207,139,.07) 42%, transparent 52%, rgba(185,152,255,.08) 72%, transparent 100%);
+      filter: blur(6px);
+      opacity: .9;
+      animation: identityRotate 32s linear infinite;
+    }
+
+    .identity-core-stage::after {
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255,255,255,.76) 0 1px, transparent 2px),
+        radial-gradient(circle at 78% 16%, rgba(255,255,255,.62) 0 1px, transparent 2px),
+        radial-gradient(circle at 88% 58%, rgba(255,255,255,.58) 0 1px, transparent 2px),
+        radial-gradient(circle at 24% 76%, rgba(255,255,255,.52) 0 1px, transparent 2px),
+        radial-gradient(circle at 52% 12%, rgba(255,255,255,.38) 0 1px, transparent 2px);
+      opacity: .55;
+      animation: identityTwinkle 4.5s ease-in-out infinite alternate;
+    }
+
+    .identity-grid,
+    .identity-aurora,
+    .identity-scan,
+    .hero-orbit,
+    .identity-sun,
+    .identity-card,
+    .floating-console,
+    .route-pill,
+    .spark { position: absolute; }
+
+    .identity-grid {
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at center, #000 0 58%, transparent 82%);
+      opacity: .34;
+    }
+
+    .identity-aurora {
+      z-index: 2;
+      left: 50%;
+      top: 50%;
+      width: 420px;
+      height: 420px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 28%, rgba(255,255,255,.34), transparent 12%),
+        radial-gradient(circle at 50% 50%, rgba(139,233,255,.20), rgba(185,152,255,.18) 34%, rgba(255,154,61,.12) 54%, transparent 70%);
+      filter: blur(18px);
+      animation: auroraBreath 6s ease-in-out infinite;
+    }
+
+    .identity-scan {
+      z-index: 4;
+      left: -30%;
+      top: 0;
+      width: 38%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(139,233,255,.08), transparent);
+      transform: skewX(-12deg);
+      animation: scanMove 6.5s ease-in-out infinite;
+    }
+
+    .hero-orbit {
+      z-index: 3;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.10);
+      transform: translate(-50%, -50%);
+    }
+
+    .hero-orbit::before,
+    .hero-orbit::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(139,233,255,.9);
+      box-shadow: 0 0 26px rgba(139,233,255,.75);
+    }
+
+    .orbit-one { width: 285px; height: 285px; animation: orbitSpin 16s linear infinite; }
+    .orbit-one::before { left: 24px; top: 34px; }
+    .orbit-one::after { right: 40px; bottom: 18px; background: rgba(241,207,139,.92); box-shadow: 0 0 26px rgba(241,207,139,.7); }
+
+    .orbit-two { width: 430px; height: 430px; border-style: dashed; opacity: .75; animation: orbitSpinReverse 26s linear infinite; }
+    .orbit-two::before { right: 48px; top: 70px; background: rgba(247,168,228,.92); box-shadow: 0 0 30px rgba(247,168,228,.7); }
+    .orbit-two::after { left: 70px; bottom: 52px; background: rgba(127,246,194,.9); box-shadow: 0 0 26px rgba(127,246,194,.65); }
+
+    .orbit-three { width: 580px; height: 580px; opacity: .36; animation: orbitSpin 42s linear infinite; }
+    .orbit-three::before { left: 110px; top: 24px; }
+    .orbit-three::after { right: 94px; bottom: 40px; background: rgba(255,154,61,.9); box-shadow: 0 0 30px rgba(255,154,61,.62); }
+
+    .identity-sun {
+      z-index: 8;
+      left: 50%;
+      top: 50%;
+      width: 190px;
+      height: 190px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 8px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 32% 26%, rgba(255,255,255,.38), transparent 18%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.12), rgba(139,233,255,.10) 34%, rgba(185,152,255,.16) 55%, rgba(0,0,0,.56) 76%);
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: 0 0 60px rgba(139,233,255,.18), 0 0 120px rgba(185,152,255,.12), inset 0 0 38px rgba(255,255,255,.08);
+      animation: sunPulse 4.8s ease-in-out infinite;
+    }
+
+    .identity-sun span {
+      font-family: Space Grotesk, sans-serif;
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      padding-left: .16em;
+    }
+
+    .identity-sun strong { font-size: .92rem; letter-spacing: .08em; text-transform: uppercase; }
+    .identity-sun small { color: rgba(255,255,255,.58); font-size: .68rem; letter-spacing: .12em; }
+
+    .identity-card {
+      z-index: 9;
+      width: 190px;
+      min-height: 104px;
+      padding: 16px 18px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: radial-gradient(circle at 24% 20%, rgba(255,255,255,.14), transparent 26%), rgba(255,255,255,.055);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 22px 70px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.10);
+      animation: cardDrift var(--card-speed, 7s) ease-in-out infinite;
+      transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+    }
+
+    .identity-card::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 12px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(139,233,255,.38), transparent);
+      animation: linePulse 2.6s ease-in-out infinite;
+    }
+
+    .identity-card small { display: block; margin-bottom: 8px; color: rgba(255,255,255,.48); font-size: .64rem; letter-spacing: .22em; text-transform: uppercase; }
+    .identity-card strong { display: block; font-size: 1.02rem; line-height: 1.15; }
+    .identity-card span { display: block; margin-top: 8px; color: rgba(255,255,255,.64); font-size: .78rem; line-height: 1.35; }
+    .identity-card:hover { transform: translateY(-8px) scale(1.02); border-color: rgba(139,233,255,.32); box-shadow: 0 28px 90px rgba(0,0,0,.44), 0 0 38px rgba(139,233,255,.12); }
+
+    .card-code { left: 7%; top: 13%; --card-speed: 7.2s; }
+    .card-travel { right: 7%; top: 17%; --card-speed: 8s; animation-delay: -1.5s; }
+    .card-mind { left: 8%; bottom: 15%; --card-speed: 7.8s; animation-delay: -2.6s; }
+    .card-magic { right: 8%; bottom: 14%; --card-speed: 8.4s; animation-delay: -3.5s; }
+
+    .floating-console {
+      z-index: 10;
+      left: 50%;
+      bottom: 34px;
+      transform: translateX(-50%);
+      width: min(410px, calc(100% - 52px));
+      border-radius: 24px;
+      border: 1px solid rgba(139,233,255,.14);
+      background: rgba(3,7,12,.62);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+      box-shadow: 0 20px 70px rgba(0,0,0,.34);
+    }
+
+    .console-top { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.08); color: rgba(255,255,255,.46); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; }
+    .console-top i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.26); }
+    .console-top span { margin-left: 4px; }
+    .floating-console code { display: block; padding: 14px 16px 17px; color: rgba(139,233,255,.82); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .84rem; white-space: normal; }
+    .floating-console b { color: rgba(241,207,139,.88); font-weight: 700; }
+
+    .route-pill {
+      z-index: 10;
+      left: 50%;
+      top: 26px;
+      transform: translateX(-50%);
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.055);
+      color: rgba(255,255,255,.68);
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+
+    .spark {
+      z-index: 6;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 18px rgba(255,255,255,.7), 0 0 34px rgba(139,233,255,.34);
+      animation: sparkFloat var(--spark-speed, 7s) ease-in-out infinite;
+    }
+    .sp-a { left: 18%; top: 46%; --spark-speed: 6.4s; }
+    .sp-b { left: 72%; top: 46%; --spark-speed: 7.6s; animation-delay: -2s; }
+    .sp-c { left: 48%; top: 16%; --spark-speed: 8.4s; animation-delay: -3s; }
+    .sp-d { left: 36%; top: 78%; --spark-speed: 7s; animation-delay: -4s; }
+    .sp-e { left: 84%; top: 76%; --spark-speed: 9s; animation-delay: -1s; }
+
+    body.day-mode .identity-core-stage { background: radial-gradient(circle at calc(50% + var(--mx, 0px)) calc(48% + var(--my, 0px)), rgba(38,154,180,.20), transparent 18%), radial-gradient(circle at 52% 72%, rgba(241,207,139,.18), transparent 20%), linear-gradient(180deg, rgba(255,255,255,.78), rgba(236,246,248,.58)) !important; }
+    body.day-mode .identity-card, body.day-mode .floating-console, body.day-mode .route-pill { background: rgba(255,255,255,.52); border-color: rgba(16,25,35,.12); }
+    body.day-mode .identity-card span, body.day-mode .identity-card small, body.day-mode .route-pill, body.day-mode .console-top { color: rgba(16,25,35,.62); }
+    body.day-mode .identity-sun small { color: rgba(16,25,35,.58); }
+
+    @keyframes identityRotate { to { transform: rotate(360deg); } }
+    @keyframes identityTwinkle { from { opacity: .36; } to { opacity: .72; } }
+    @keyframes auroraBreath { 0%,100% { transform: translate(-50%, -50%) scale(.95) rotate(0deg); opacity: .72; } 50% { transform: translate(-50%, -50%) scale(1.12) rotate(12deg); opacity: 1; } }
+    @keyframes scanMove { 0%, 42%, 100% { left: -45%; opacity: 0; } 52% { opacity: .8; } 72% { left: 110%; opacity: 0; } }
+    @keyframes orbitSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+    @keyframes orbitSpinReverse { to { transform: translate(-50%, -50%) rotate(-360deg); } }
+    @keyframes sunPulse { 0%,100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.06); } }
+    @keyframes cardDrift { 0%,100% { margin-top: 0; margin-left: 0; } 35% { margin-top: -14px; margin-left: 8px; } 70% { margin-top: 8px; margin-left: -7px; } }
+    @keyframes linePulse { 0%,100% { opacity: .18; transform: scaleX(.62); } 50% { opacity: .72; transform: scaleX(1); } }
+    @keyframes sparkFloat { 0%,100% { transform: translate(0,0) scale(.8); opacity: .28; } 50% { transform: translate(16px,-24px) scale(1.35); opacity: .9; } }
+
+    @media (max-width: 1100px) {
+      .identity-core-stage { min-height: 700px !important; }
+      .card-code { left: 6%; top: 14%; }
+      .card-travel { right: 6%; top: 14%; }
+      .card-mind { left: 6%; bottom: 19%; }
+      .card-magic { right: 6%; bottom: 19%; }
+      .floating-console { bottom: 28px; }
+    }
+
+    @media (max-width: 860px) {
+      .identity-altar { padding: 14px !important; }
+      .identity-core-stage { min-height: 760px !important; border-radius: 28px !important; }
+      .identity-sun { width: 150px; height: 150px; }
+      .identity-sun span { font-size: 1.8rem; }
+      .hero-orbit.orbit-one { width: 230px; height: 230px; }
+      .hero-orbit.orbit-two { width: 330px; height: 330px; }
+      .hero-orbit.orbit-three { width: 440px; height: 440px; }
+      .identity-card { width: 155px; min-height: 96px; padding: 14px; border-radius: 22px; }
+      .identity-card strong { font-size: .9rem; }
+      .identity-card span { font-size: .72rem; }
+      .card-code { left: 5%; top: 12%; }
+      .card-travel { right: 5%; top: 20%; }
+      .card-mind { left: 5%; bottom: 22%; }
+      .card-magic { right: 5%; bottom: 15%; }
+      .route-pill { top: 18px; width: calc(100% - 42px); text-align: center; font-size: .62rem; }
+      .floating-console { bottom: 24px; }
+    }
+
+
+
+    /* =====================================
+       CLEAN ORIGIN: no repeated visual cards
+       Whole page already carries the themes.
+    ====================================== */
+    #home.clean-origin {
+      min-height: calc(100vh - var(--nav));
+      padding: 84px 0 76px !important;
+      display: grid;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #home.clean-origin::before {
+      content: "";
+      position: absolute;
+      inset: 8% 8% auto;
+      height: 58%;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 24% 24%, rgba(139,233,255,.12), transparent 28%),
+        radial-gradient(circle at 74% 22%, rgba(241,207,139,.10), transparent 28%),
+        radial-gradient(circle at 50% 76%, rgba(247,168,228,.08), transparent 34%);
+      filter: blur(30px);
+      opacity: .9;
+    }
+
+    #home .clean-origin-wrap {
+      position: relative;
+      min-height: 68vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    #home .clean-origin-content {
+      width: min(100%, 1040px);
+      margin: 0 auto;
+    }
+
+    #home .label {
+      margin-inline: auto;
+    }
+
+    #home h1 {
+      max-width: 1040px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: clamp(3.8rem, 8.2vw, 7.8rem);
+      line-height: .9;
+    }
+
+    #home .copy {
+      max-width: 780px;
+      margin-left: auto;
+      margin-right: auto;
+      color: rgba(255,255,255,.70);
+    }
+
+    #home .clean-origin-actions {
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    #home .chips,
+    #home .identity-altar,
+    #home .altar,
+    #home .identity-core-stage,
+    #home .identity-card,
+    #home .floating-console,
+    #home .route-pill,
+    #home .spark,
+    #home .hero-orbit,
+    #home .identity-sun {
+      display: none !important;
+    }
+
+    .origin-scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      display: grid;
+      place-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,.42);
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .origin-scroll-cue span {
+      width: 1px;
+      height: 54px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,.36), transparent);
+      animation: cleanScrollLine 2.4s ease-in-out infinite;
+    }
+
+    body.day-mode #home .copy,
+    body.day-mode .origin-scroll-cue {
+      color: rgba(16,25,35,.58);
+    }
+
+    body.day-mode .origin-scroll-cue span {
+      background: linear-gradient(180deg, transparent, rgba(16,25,35,.30), transparent);
+    }
+
+    @keyframes cleanScrollLine {
+      0%, 100% { opacity: .28; transform: scaleY(.72); }
+      50% { opacity: .85; transform: scaleY(1); }
+    }
+
+    @media (max-width: 860px) {
+      #home.clean-origin {
+        min-height: auto;
+        padding: 64px 0 72px !important;
+      }
+
+      #home .clean-origin-wrap {
+        min-height: 620px;
+      }
+
+      #home h1 {
+        font-size: clamp(3.1rem, 15vw, 5.4rem);
+      }
+
+      #home .copy {
+        font-size: .98rem;
+      }
+    }
+
   </style>
+
+
+  <style id="minimal-origin-refinement">
+    /* ================================
+       Minimal Origin Refinement
+       Keep hero calm because later sections are already cinematic.
+    ================================= */
+    #home .identity-altar {
+      padding: 16px !important;
+      animation: none !important;
+      box-shadow: 0 26px 100px rgba(0,0,0,.32) !important;
+    }
+
+    #home .identity-core-stage {
+      min-height: 520px !important;
+      padding: 30px !important;
+      border-radius: 34px !important;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 14px !important;
+      align-content: center !important;
+      background:
+        radial-gradient(circle at 86% 16%, rgba(139,233,255,.08), transparent 22%),
+        radial-gradient(circle at 14% 86%, rgba(241,207,139,.07), transparent 24%),
+        linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.025)) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.10),
+        0 34px 110px rgba(0,0,0,.38) !important;
+    }
+
+    #home .identity-core-stage::before,
+    #home .identity-core-stage::after,
+    #home .identity-grid,
+    #home .identity-aurora,
+    #home .identity-scan,
+    #home .hero-orbit,
+    #home .spark {
+      display: none !important;
+      animation: none !important;
+    }
+
+    #home .route-pill,
+    #home .identity-sun,
+    #home .identity-card,
+    #home .floating-console {
+      position: relative !important;
+      left: auto !important;
+      right: auto !important;
+      top: auto !important;
+      bottom: auto !important;
+      transform: none !important;
+      animation: none !important;
+      z-index: 2 !important;
+    }
+
+    #home .route-pill {
+      order: -3;
+      grid-column: 1 / -1;
+      width: fit-content !important;
+      padding: 8px 13px !important;
+      border-radius: 999px !important;
+      background: rgba(255,255,255,.045) !important;
+      border-color: rgba(255,255,255,.10) !important;
+      color: rgba(255,255,255,.58) !important;
+      font-size: .66rem !important;
+      letter-spacing: .18em !important;
+      backdrop-filter: blur(10px);
+    }
+
+    #home .identity-sun {
+      order: -2;
+      grid-column: 1 / -1;
+      width: auto !important;
+      height: auto !important;
+      min-height: 168px;
+      padding: 28px !important;
+      display: grid !important;
+      grid-template-columns: auto 1fr !important;
+      column-gap: 22px !important;
+      row-gap: 5px !important;
+      place-items: center start !important;
+      align-content: center !important;
+      text-align: left !important;
+      border-radius: 30px !important;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.095), rgba(255,255,255,.035)) !important;
+      border: 1px solid rgba(255,255,255,.12) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 22px 70px rgba(0,0,0,.24) !important;
+    }
+
+    #home .identity-sun::after {
+      content: "Minimal portfolio · cinematic stories";
+      grid-column: 2;
+      display: block;
+      margin-top: 12px;
+      color: rgba(255,255,255,.56);
+      font-size: .86rem;
+      line-height: 1.6;
+      letter-spacing: .02em;
+    }
+
+    #home .identity-sun span {
+      grid-row: 1 / span 3;
+      width: 92px;
+      height: 92px;
+      border-radius: 26px;
+      display: grid;
+      place-items: center;
+      padding-left: .12em;
+      font-size: 2rem !important;
+      letter-spacing: .12em !important;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 0 34px rgba(139,233,255,.08);
+    }
+
+    #home .identity-sun strong {
+      font-size: clamp(1.55rem, 2.5vw, 2.15rem) !important;
+      letter-spacing: -.035em !important;
+      text-transform: none !important;
+      line-height: 1.05;
+    }
+
+    #home .identity-sun small {
+      color: rgba(255,255,255,.62) !important;
+      font-size: .78rem !important;
+      letter-spacing: .16em !important;
+      text-transform: uppercase;
+    }
+
+    #home .identity-card {
+      width: auto !important;
+      min-height: 118px !important;
+      padding: 19px !important;
+      border-radius: 24px !important;
+      background: rgba(255,255,255,.04) !important;
+      border-color: rgba(255,255,255,.095) !important;
+      box-shadow: none !important;
+      backdrop-filter: blur(14px) !important;
+      transition: transform .25s ease, background .25s ease, border-color .25s ease !important;
+    }
+
+    #home .identity-card::before {
+      left: 18px !important;
+      right: auto !important;
+      top: 18px !important;
+      bottom: auto !important;
+      width: 26px !important;
+      height: 2px !important;
+      background: linear-gradient(90deg, rgba(139,233,255,.70), rgba(241,207,139,.50)) !important;
+      opacity: .75 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    #home .identity-card small {
+      margin-top: 13px !important;
+      margin-bottom: 10px !important;
+      font-size: .62rem !important;
+      color: rgba(255,255,255,.42) !important;
+    }
+
+    #home .identity-card strong {
+      font-size: 1.02rem !important;
+    }
+
+    #home .identity-card span {
+      color: rgba(255,255,255,.58) !important;
+    }
+
+    #home .identity-card:hover {
+      transform: translateY(-4px) !important;
+      background: rgba(255,255,255,.065) !important;
+      border-color: rgba(139,233,255,.18) !important;
+    }
+
+    #home .floating-console {
+      grid-column: 1 / -1;
+      width: auto !important;
+      border-radius: 24px !important;
+      background: rgba(3,7,12,.42) !important;
+      border-color: rgba(255,255,255,.10) !important;
+      box-shadow: none !important;
+      overflow: hidden;
+    }
+
+    #home .console-top {
+      padding: 10px 14px !important;
+      color: rgba(255,255,255,.40) !important;
+    }
+
+    #home .floating-console code {
+      padding: 14px 16px !important;
+      color: rgba(255,255,255,.68) !important;
+    }
+
+    #home .floating-console b {
+      color: rgba(241,207,139,.86) !important;
+    }
+
+    body.day-mode #home .identity-core-stage {
+      background:
+        radial-gradient(circle at 86% 16%, rgba(38,154,180,.10), transparent 22%),
+        radial-gradient(circle at 14% 86%, rgba(199,139,36,.10), transparent 24%),
+        linear-gradient(180deg, rgba(255,255,255,.74), rgba(255,255,255,.44)) !important;
+    }
+
+    body.day-mode #home .identity-sun,
+    body.day-mode #home .identity-card,
+    body.day-mode #home .floating-console,
+    body.day-mode #home .route-pill {
+      background: rgba(255,255,255,.46) !important;
+      border-color: rgba(16,25,35,.10) !important;
+    }
+
+    body.day-mode #home .identity-sun::after,
+    body.day-mode #home .identity-card span,
+    body.day-mode #home .route-pill,
+    body.day-mode #home .floating-console code,
+    body.day-mode #home .console-top {
+      color: rgba(16,25,35,.58) !important;
+    }
+
+    @media (max-width: 860px) {
+      #home .identity-core-stage {
+        grid-template-columns: 1fr !important;
+        min-height: auto !important;
+        padding: 20px !important;
+      }
+
+      #home .identity-sun {
+        grid-template-columns: 1fr !important;
+        text-align: left !important;
+        min-height: auto !important;
+      }
+
+      #home .identity-sun span {
+        grid-row: auto;
+        width: 78px;
+        height: 78px;
+        font-size: 1.6rem !important;
+      }
+
+      #home .identity-sun::after {
+        grid-column: auto;
+      }
+    }
+  </style>
+
 </head>
 
 <body class="theme-home">
@@ -2352,39 +3032,10 @@
   </header>
 
   <main>
-    <section class="scene" id="home" data-theme="home">
-      <div class="container grid">
-        <div class="reveal">
-          <div class="label">enter the world</div>
-          <h1>I build <span class="accent-cyan">systems</span>.<br>I chase <span class="accent-gold">mountains</span>.<br>I study the <span class="accent-fire">mind</span>.</h1>
-          <p class="copy">A cinematic profile — not a normal portfolio. Cold roads, production systems, a galaxy of thought, books as spells, and future dreams arranged like a living inner world.</p>
-          <div class="actions">
-            <a class="btn btn-primary" href="#travel">Start the journey</a>
-            <a class="btn btn-fire" href="#tech">Enter tech cockpit</a>
-          </div>
-          <div class="chips">
-            <span class="chip">Mountain memories</span>
-            <span class="chip">Backend systems</span>
-            <span class="chip">Mind explorer</span>
-            <span class="chip">Magic library</span>
-          </div>
-        </div>
-
-        <div class="altar glass reveal">
-          <div class="altar-core">
-            <div class="ring r1"></div>
-            <div class="ring r2"></div>
-            <div class="ring r3"></div>
-            <div class="orb"></div>
-            <div class="flame"></div>
-            <div class="rune ru1">YS</div>
-            <div class="rune ru2">SYS</div>
-            <div class="rune ru3">TRV</div>
-            <div class="rune ru4">MND</div>
-            <div class="orbit-tag ot1">Traveller</div>
-            <div class="orbit-tag ot2">Builder</div>
-            <div class="orbit-tag ot3">Mind Explorer</div>
-          </div>
+    <section class="scene clean-origin" id="home" data-theme="home">
+      <div class="container clean-origin-wrap">
+        <div class="reveal clean-origin-content">
+          <h1>A living map of <span class="accent-cyan">work</span>, <span class="accent-gold">travel</span>, and <span class="accent-fire">mind</span>.</h1>
         </div>
       </div>
     </section>
@@ -2606,7 +3257,7 @@
 
             <small>Resume portal</small>
             <strong class="resume-title">Open the professional blueprint.</strong>
-            <p>Projects, production systems, backend architecture, performance wins, and career story.</p>
+            <p>Projects, production systems, backend architecture, performance wins, and career story — arranged in one focused resume page.</p>
 
             <div class="resume-tags">
               <span>Java</span>
@@ -2798,6 +3449,22 @@
         soundToggle.textContent = 'Sound blocked';
       }
     }
+
+
+
+    const identityStage = document.querySelector('.identity-core-stage');
+    identityStage?.addEventListener('pointermove', (event) => {
+      const rect = identityStage.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - .5) * 42;
+      const y = ((event.clientY - rect.top) / rect.height - .5) * 42;
+      identityStage.style.setProperty('--mx', x + 'px');
+      identityStage.style.setProperty('--my', y + 'px');
+    });
+
+    identityStage?.addEventListener('pointerleave', () => {
+      identityStage.style.setProperty('--mx', '0px');
+      identityStage.style.setProperty('--my', '0px');
+    });
 
     renderTravelPlaces();
     setProgress();
