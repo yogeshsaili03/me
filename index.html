@@ -2976,6 +2976,131 @@
         grid-column: auto;
       }
     }
+
+    /* ================================
+       BOOK SHOWCASE TYPING UPGRADE
+       - Fills the open book with two soft typed messages
+    ================================= */
+    .book-showcase {
+      min-height: 285px !important;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(241,207,139,.24), transparent 30%),
+        radial-gradient(circle at 76% 24%, rgba(247,168,228,.16), transparent 23%),
+        radial-gradient(circle at 22% 30%, rgba(185,152,255,.10), transparent 25%),
+        rgba(255,255,255,.035) !important;
+    }
+
+    .open-book-visual {
+      width: min(500px, 88%) !important;
+      height: 188px !important;
+      top: 46% !important;
+    }
+
+    .book-page {
+      height: 145px !important;
+      padding: 24px 20px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+    }
+
+    .book-page::before {
+      content: "";
+      position: absolute;
+      inset: 14px 18px;
+      border-radius: inherit;
+      background:
+        linear-gradient(180deg, transparent 0 28%, rgba(241,207,139,.09) 29%, transparent 30%),
+        linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+      opacity: .55;
+      pointer-events: none;
+    }
+
+    .page-whisper {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      gap: 7px;
+      width: 100%;
+      text-align: center;
+      transform: translateY(2px);
+    }
+
+    .typed-line {
+      display: block;
+      width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0 auto;
+      color: rgba(255,255,255,.86);
+      font-family: Space Grotesk, Inter, system-ui, sans-serif;
+      font-size: clamp(.74rem, 1.05vw, .96rem);
+      font-weight: 800;
+      letter-spacing: .035em;
+      line-height: 1.25;
+      text-shadow:
+        0 0 18px rgba(241,207,139,.24),
+        0 0 28px rgba(247,168,228,.10);
+      border-right: 1px solid rgba(241,207,139,.78);
+      animation:
+        bookType var(--duration, 1.2s) steps(var(--steps, 16), end) forwards var(--delay, 0s),
+        bookCursor .75s step-end infinite var(--delay, 0s);
+    }
+
+    .left-page .typed-line:last-child,
+    .right-page .typed-line:last-child {
+      color: rgba(241,207,139,.90);
+    }
+
+    .right-page .typed-line:last-child {
+      text-shadow:
+        0 0 18px rgba(255,91,46,.22),
+        0 0 28px rgba(247,168,228,.16);
+    }
+
+    .book-quote-pill {
+      bottom: 18px !important;
+      letter-spacing: .12em !important;
+      background: rgba(0,0,0,.30) !important;
+      box-shadow: 0 0 26px rgba(241,207,139,.10);
+    }
+
+    @keyframes bookType {
+      from { width: 0; }
+      to { width: var(--target); }
+    }
+
+    @keyframes bookCursor {
+      0%, 100% { border-color: rgba(241,207,139,.78); }
+      50% { border-color: transparent; }
+    }
+
+    @media (max-width: 860px) {
+      .open-book-visual {
+        width: 94% !important;
+        height: 178px !important;
+      }
+
+      .book-page {
+        padding: 22px 12px !important;
+      }
+
+      .typed-line {
+        font-size: .70rem;
+        letter-spacing: .01em;
+      }
+
+      .book-quote-pill {
+        max-width: calc(100% - 28px);
+        white-space: normal !important;
+        text-align: center;
+        line-height: 1.45;
+      }
+    }
+
   </style>
 
 </head>
@@ -3036,6 +3161,8 @@
       <div class="container clean-origin-wrap">
         <div class="reveal clean-origin-content">
           <h1>A living map of <span class="accent-cyan">work</span>, <span class="accent-gold">travel</span>, and <span class="accent-fire">mind</span>.</h1>
+          <div class="actions clean-origin-actions">
+          </div>
         </div>
       </div>
     </section>
@@ -3172,8 +3299,18 @@
 
             <div class="book-showcase" aria-hidden="true">
               <div class="open-book-visual">
-                <span class="book-page left-page"></span>
-                <span class="book-page right-page"></span>
+                <span class="book-page left-page">
+                  <span class="page-whisper">
+                    <span class="typed-line" style="--target:15ch;--delay:.35s;--duration:1.15s;--steps:15">You repeat what</span>
+                    <span class="typed-line" style="--target:22ch;--delay:1.55s;--duration:1.45s;--steps:22">you don’t repair 🧞</span>
+                  </span>
+                </span>
+                <span class="book-page right-page">
+                  <span class="page-whisper">
+                    <span class="typed-line">A grateful</span>
+                    <span class="typed-line" style="--target:19ch;--delay:4.45s;--duration:1.35s;--steps:8">heart ❤️‍🔥</span>
+                  </span>
+                </span>
                 <span class="book-rune r-one">✦</span>
                 <span class="book-rune r-two">♡</span>
                 <span class="book-rune r-three">✧</span>
